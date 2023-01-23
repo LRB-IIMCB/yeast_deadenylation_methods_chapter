@@ -1,7 +1,7 @@
 Transcriptome-wide analysis of mRNA adenylation status in yeast using
 nanopore sequencing
 ================
-Pawel S KrawczykAgnieszka TudekSeweryn MroczekAndrzej Dziembowski
+Pawel S Krawczyk, Agnieszka Tudek, Seweryn Mroczek, Andrzej Dziembowski
 
 - <a href="#abstract" id="toc-abstract">Abstract</a>
 - <a href="#about-this-dataset" id="toc-about-this-dataset">About this
@@ -23,6 +23,7 @@ Pawel S KrawczykAgnieszka TudekSeweryn MroczekAndrzej Dziembowski
   - <a href="#transcripts-abundance"
     id="toc-transcripts-abundance">Transcripts abundance</a>
 - <a href="#further-steps" id="toc-further-steps">Further steps</a>
+- <a href="#references" id="toc-references">References</a>
 
 # Abstract
 
@@ -196,7 +197,7 @@ plot_nanopolish_qc(nanopolish_processing_info=nanopolish_qc,frequency=F)
 
 </details>
 
-![](README_files/figure-commonmark/unnamed-chunk-4-1.png)
+![](README_files/figure-commonmark/nanopolish-qc-1.png)
 
 As we can see, a large proportion o reads are assigned to the SUFFCLIP
 category. This is due to the reference lacking UTR sequences. As this
@@ -276,7 +277,7 @@ plot_polya_distribution(polya_data=polya_data_filtered, groupingFactor="group",s
 
 </details>
 
-![](README_files/figure-commonmark/unnamed-chunk-6-1.png)
+![](README_files/figure-commonmark/plot-polya-distribution-1.png)
 
 <div>
 
@@ -300,7 +301,7 @@ plot_polya_violin(polya_data = polya_data_filtered,groupingFactor = "group",add_
 
 </details>
 
-![](README_files/figure-commonmark/unnamed-chunk-7-1.png)
+![](README_files/figure-commonmark/plot-polya-violin-1.png)
 
 ## Statistics
 
@@ -484,6 +485,8 @@ abundance can help to interpret the data. For example, a strong decrease
 in poly(A)-tail length coupled with a decrease in mRNA abundance is
 indicative of transcript decay. Conversely increase in both factors
 could suggest increased RNA stability or de novo transcription.
+
+# References
 
 <div id="refs" class="references csl-bib-body" line-spacing="2">
 
