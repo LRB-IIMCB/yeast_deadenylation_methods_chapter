@@ -1,0 +1,6 @@
+sample_name,polya_path,group,time,material
+time.0min,data/time0_nanopolish.tsv,t0,0,Scerevisiae
+time.10min,data/time10_nanopolish.tsv,t10,10,Scerevisiae
+time.18min,data/time18_nanopolish.tsv,t18,18,Scerevisiae
+time.2min,data/time2_nanopolish.tsv,t2,2,Scerevisiae
+time.6min,data/time6_nanopolish.tsv,t6,6,Scerevisiae
