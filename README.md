@@ -8,6 +8,8 @@ Pawel S KrawczykAgnieszka TudekSeweryn MroczekAndrzej Dziembowski
   dataset</a>
 - <a href="#prerequisities" id="toc-prerequisities">Prerequisities</a>
 - <a href="#protocol" id="toc-protocol">Protocol</a>
+  - <a href="#load-required-libraries" id="toc-load-required-libraries">Load
+    required libraries</a>
   - <a href="#load-metadata" id="toc-load-metadata">Load metadata</a>
   - <a href="#load-polya-lengths-data" id="toc-load-polya-lengths-data">Load
     poly(A) lengths data</a>
@@ -94,7 +96,9 @@ with statistical data analysis. As this is direct RNA sequencing, each
 read represents a single transcript present in the library. At this
 point there are multiple routes of analysis possible, depending on the
 experimental setup chosen at the beginning. Here we will cover only the
-basic analysis possible with obtained data. \## Load required libraries
+basic analysis possible with obtained data.
+
+## Load required libraries
 
 This will load all software packages required for processing of data
 included in this dataset
@@ -130,12 +134,6 @@ metadata_pombe <- read.table("metadata_heat_pombe.csv",sep=",",header=T)
 
 </div>
 
-<div>
-
-> **Tip**
-
-</div>
-
 ## Load poly(A) lengths data
 
 Data are loaded into single data.frame using read_polya_multiple()
@@ -155,10 +153,12 @@ polya_data_table_pombe <- read_polya_multiple(metadata_pombe)
 
 </details>
 
-<div class="{callout-note}">
+<div>
 
-There is also read_polya_single() function, which loads data from the
-single experiment to the environment.
+> **Note**
+>
+> There is also read_polya_single() function, which loads data from the
+> single experiment to the environment.
 
 </div>
 
@@ -320,7 +320,7 @@ groups.
 
 <div>
 
-> **Danger**
+> **Note**
 >
 > Computation of statistics can take several minutes to finish
 
