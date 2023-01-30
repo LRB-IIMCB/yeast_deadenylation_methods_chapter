@@ -1,7 +1,7 @@
 Transcriptome-wide analysis of mRNA adenylation status in yeast using
 nanopore sequencing
 ================
-Pawel S Krawczyk Agnieszka Tudek Seweryn Mroczek Andrzej Dziembowski
+Pawel S Krawczyk, Agnieszka Tudek, Seweryn Mroczek, Andrzej Dziembowski
 
 - <a href="#abstract" id="toc-abstract">Abstract</a>
 - <a href="#about-this-dataset" id="toc-about-this-dataset">About this
@@ -47,17 +47,18 @@ Steady-state and dynamic measurement of RNA levels and poly(A)-tail
 length are the two possible types of experiments in which DRS data can
 be used. In this protocol, we focus on dynamic profiles of mRNA
 abundance and poly(A)-tail lengths during the response to heat-stress in
-a wild-type strain (follow up of<sup>1</sup>, unpublished dataset).
+a wild-type strain (follow up of<sup>1</sup>, data resembling those
+from<sup>2</sup>, unpublished dataset).
 
 This repository contains data required to proceed with the final part of
-the protocol (nanopolish polya<sup>2</sup> output files with poly(A)
+the protocol (nanopolish polya<sup>3</sup> output files with poly(A)
 lengths for each sample) . They were processed using S. cerevisiae and
 S. pombe transcriptomes available from Ensembl
 (<https://ftp.ensemblgenomes.org/pub/fungi/release-55/fasta/saccharomyces_cerevisiae/cds/>)
 and
 <https://ftp.ensemblgenomes.org/pub/fungi/release-55/fasta/schizosaccharomyces_pombe/cds/>,
 respectively). Basecalled reads were mapped to the transcriptomes using
-Minimap2<sup>3</sup>.
+Minimap2<sup>4</sup>.
 
 # Prerequisities
 
@@ -421,7 +422,7 @@ polya_summary <- summarize_polya_per_transcript(polya_data = polya_data_filtered
 > Most yeast cellular poly(A)-tail profiles are normal with the mean and
 > median located between 20 and 40 adenosines. Since from other studies
 > we know that the newly made poly(A)-tail length is around 50-60
-> adenosines with the upper adenylation limit of 200<sup>1,4</sup>, the
+> adenosines with the upper adenylation limit of 200<sup>1,5</sup>, the
 > mean and median values most likely represent RNAs deadenylated in the
 > cytoplasm.
 >
@@ -517,7 +518,7 @@ shortened or remain stable. In principle, this allows for the modeling
 of deadenylation rates by comparing changes to either the mean/medians
 or the quantile values. As in the case of decay rates, this can be done
 by fitting function parameters into experimental data, as proposed for
-decay previously<sup>5,6</sup>.
+decay previously<sup>6,7</sup>.
 
 The advantage of DRS is that this method simultaneously provides
 information about mRNA levels and poly(A)-tail lengths. We suggested the
@@ -545,9 +546,18 @@ Communications* **12**, (2021).</span>
 
 </div>
 
-<div id="ref-Workman2019" class="csl-entry">
+<div id="ref-Czarnocka-Cieciura2023" class="csl-entry">
 
 <span class="csl-left-margin">2. </span><span
+class="csl-right-inline">Czarnocka-Cieciura, A. *et al.* mRNA decay can
+be uncoupled from deadenylation during stress response. *bioRxiv* (2023)
+doi:[10.1101/2023.01.20.524924](https://doi.org/10.1101/2023.01.20.524924).</span>
+
+</div>
+
+<div id="ref-Workman2019" class="csl-entry">
+
+<span class="csl-left-margin">3. </span><span
 class="csl-right-inline">Workman, R. E. *et al.* [Nanopore native RNA
 sequencing of a human poly(A)
 transcriptome](https://doi.org/10.1038/s41592-019-0617-2). *Nature
@@ -557,7 +567,7 @@ Methods* **16**, 1297–1305 (2019).</span>
 
 <div id="ref-Li2018" class="csl-entry">
 
-<span class="csl-left-margin">3. </span><span
+<span class="csl-left-margin">4. </span><span
 class="csl-right-inline">Li, H. [Minimap2: pairwise alignment for
 nucleotide sequences](https://doi.org/10.1093/bioinformatics/bty191).
 *Bioinformatics* **34**, 3094–3100 (2018).</span>
@@ -566,7 +576,7 @@ nucleotide sequences](https://doi.org/10.1093/bioinformatics/bty191).
 
 <div id="ref-Turtola2021" class="csl-entry">
 
-<span class="csl-left-margin">4. </span><span
+<span class="csl-left-margin">5. </span><span
 class="csl-right-inline">Turtola, M. *et al.* [Three-layered control of
 mRNA poly(A) tail synthesis in *Saccharomyces
 cerevisiae*](https://doi.org/10.1101/gad.348634.121). *Genes &
@@ -576,7 +586,7 @@ Development* **35**, 1290–1303 (2021).</span>
 
 <div id="ref-Miller2011" class="csl-entry">
 
-<span class="csl-left-margin">5. </span><span
+<span class="csl-left-margin">6. </span><span
 class="csl-right-inline">Miller, C. *et al.* [Dynamic transcriptome
 analysis measures rates of mRNA synthesis and decay in
 yeast](https://doi.org/10.1038/msb.2010.112). *Molecular Systems
@@ -586,7 +596,7 @@ Biology* **7**, 458 (2011).</span>
 
 <div id="ref-Alexander2010" class="csl-entry">
 
-<span class="csl-left-margin">6. </span><span
+<span class="csl-left-margin">7. </span><span
 class="csl-right-inline">Alexander, R. D. *et al.* [RiboSys, a
 high-resolution, quantitative approach to measure the in vivo kinetics
 of pre-mRNA splicing and 3’-end processing in *Saccharomyces
