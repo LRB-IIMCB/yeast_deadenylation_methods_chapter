@@ -1,7 +1,7 @@
 Transcriptome-wide analysis of mRNA adenylation status in yeast using
 nanopore sequencing
 ================
-Pawel S Krawczyk, Agnieszka Tudek, Seweryn Mroczek, Andrzej Dziembowski
+Pawel S KrawczykAgnieszka TudekSeweryn MroczekAndrzej Dziembowski
 
 - <a href="#abstract" id="toc-abstract">Abstract</a>
 - <a href="#about-this-dataset" id="toc-about-this-dataset">About this
@@ -67,6 +67,7 @@ Required R packages:
 
 - nanotail (<https://github.com/LRB-IIMCB/nanotail>)
 - tidyverse
+- ggplot2
 - (optional) tailfindr (<https://github.com/adnaniazi/tailfindr>)
 
 If they are not installed yet, use below commands:
@@ -75,7 +76,7 @@ If they are not installed yet, use below commands:
 <summary>Code</summary>
 
 ``` r
-install.packages(c("devtools","tidyverse"))
+install.packages(c("devtools","tidyverse","ggplot2"))
 library(devtools)
 devtools::install_github("LRB-IIMCB/nanotail")
 
@@ -107,8 +108,8 @@ spike-in data into R session using:
 <summary>Code</summary>
 
 ``` r
-metadata <- read.table("metadata.csv",sep=",",header=T)
-metadata_pombe <- read.table("metadata_pombe.csv",sep=",",header=T)
+metadata <- read.table("metadata_heat.csv",sep=",",header=T)
+metadata_pombe <- read.table("metadata_heat_pombe.csv",sep=",",header=T)
 ```
 
 </details>
@@ -129,6 +130,12 @@ metadata_pombe <- read.table("metadata_pombe.csv",sep=",",header=T)
 
 </div>
 
+<div>
+
+> **Tip**
+
+</div>
+
 ## Load poly(A) lengths data
 
 Data are loaded into single data.frame using read_polya_multiple()
@@ -142,6 +149,7 @@ argument.
 # load data
 polya_data_table <- read_polya_multiple(metadata) 
 
+polya_data_table$group <- factor(polya_data_table$group,levels=c("t0","t2","t6","t10","t18"))
 polya_data_table_pombe <- read_polya_multiple(metadata_pombe) 
 ```
 
@@ -296,7 +304,7 @@ For multiple samples, it is better to use a violin plot instead”
 <summary>Code</summary>
 
 ``` r
-plot_polya_violin(polya_data = polya_data_filtered,groupingFactor = "group",add_boxplot=T)  
+plot_polya_violin(polya_data = polya_data_filtered,groupingFactor = "group",add_boxplot=T,transcript_id=NULL)  
 ```
 
 </details>
@@ -308,13 +316,21 @@ plot_polya_violin(polya_data = polya_data_filtered,groupingFactor = "group",add_
 Next, find transcripts with significant change in poly(A) lengths
 between conditions using kruskal_polya() function (from the nanotail
 package). It uses Kruskall-Wallis test for comparison between multiple
-groups:
+groups.
+
+<div>
+
+> **Danger**
+>
+> Computation of statistics can take several minutes to finish
+
+</div>
 
 <details open>
 <summary>Code</summary>
 
 ``` r
-#polya_data_stats<-kruskal_polya(input_data=polya_data_filtered,grouping_factor="group",transcript_id="transcript") 
+polya_data_stats<-kruskal_polya(input_data=polya_data_filtered,grouping_factor="group",transcript_id="transcript") 
 ```
 
 </details>
@@ -325,7 +341,7 @@ groups:
 >
 > The result table can be reviewed with the command:
 >
->     View(polya_stats %>% dplyr::filter(padj<0.05)) 
+>     View(polya_data_stats %>% dplyr::filter(padj<0.05)) 
 
 </div>
 
@@ -336,10 +352,14 @@ can be assessed with:
 <summary>Code</summary>
 
 ``` r
-#polya_stats %>% dplyr::filter(padj<0.05) %>% count() 
+polya_data_stats %>% dplyr::filter(padj<0.05) %>% count() 
 ```
 
 </details>
+
+|   n |
+|----:|
+| 150 |
 
 ## Single transcripts
 
@@ -357,10 +377,12 @@ from statistical analysis performed in a previous step:
 <summary>Code</summary>
 
 ``` r
-#plot_polya_violin(polya_data = polya_data_filtered,groupingFactor = "group",transcript="YMR251W-A_mRNA")  
+plot_polya_violin(polya_data = polya_data_filtered,groupingFactor = "group",transcript_id="YMR251W-A_mRNA")  
 ```
 
 </details>
+
+![](README_files/figure-commonmark/plot-single-transcript-violin-1.png)
 
 ## Per-transcript summary
 
@@ -375,7 +397,7 @@ better sensitivity than just looking at mean or median values.
 <summary>Code</summary>
 
 ``` r
-#polya_summary <- summarize_polya_per_transcript(polya_data = polya_data_filtered,groupBy="group",transcript_id="transcript",quantiles=c(0.03,0.05,0.95,0.97),summary_functions=c("mean","median"))
+polya_summary <- summarize_polya_per_transcript(polya_data = polya_data_filtered,groupBy="group",transcript_id="transcript",quantiles=c(0.03,0.05,0.95,0.97),summary_functions=c("mean","median"))
 ```
 
 </details>
@@ -412,10 +434,12 @@ Quantiles distribution can be plotted with function plot_quantiles()
 <summary>Code</summary>
 
 ``` r
-#plot_quantiles(polya_data_summary=polya_summary,transcript_id= "YMR251W-A_mRNA",groupBy="group") 
+plot_quantiles(summarized_data=polya_summary,transcript_id= "YMR251W-A_mRNA",groupBy="group") 
 ```
 
 </details>
+
+![](README_files/figure-commonmark/plot-transcript-quantiles-1.png)
 
 ## Transcripts abundance
 
@@ -427,10 +451,19 @@ purpose please use:
 <summary>Code</summary>
 
 ``` r
-#polya_summary_normalized <- normalize_counts_to_depth(summarized_data=polya_summary,raw_data=polya_data_table,spike_in_data=polya_data_table_pombe,groupBy="group")
+polya_summary_normalized <- normalize_counts_to_depth(summarized_data=polya_summary,raw_data=polya_data_table,spike_in_data=polya_data_table_pombe,groupBy="group")
 ```
 
 </details>
+
+    # A tibble: 5 × 3
+      group      n norm_factor
+      <fct>  <int>       <dbl>
+    1 t0    123083        3.92
+    2 t2     45217        1.44
+    3 t6    130211        4.15
+    4 t10    59062        1.88
+    5 t18    31365        1   
 
 This will produce a separate table containing norm_counts column with
 normalized expression values. Obtained data can be used to analyze the
