@@ -1,7 +1,7 @@
 Transcriptome-wide analysis of mRNA adenylation status in yeast using
 nanopore sequencing
 ================
-Pawel S KrawczykAgnieszka TudekSeweryn MroczekAndrzej Dziembowski
+Pawel S Krawczyk Agnieszka Tudek Seweryn Mroczek Andrzej Dziembowski
 
 - <a href="#abstract" id="toc-abstract">Abstract</a>
 - <a href="#about-this-dataset" id="toc-about-this-dataset">About this
@@ -102,6 +102,18 @@ basic analysis possible with obtained data.
 
 This will load all software packages required for processing of data
 included in this dataset
+
+<details open>
+<summary>Code</summary>
+
+``` r
+# load libraries
+library(tidyverse)
+library(nanotail)
+library(ggplot2)
+```
+
+</details>
 
 ## Load metadata
 
